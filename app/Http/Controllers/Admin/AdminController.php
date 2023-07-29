@@ -28,4 +28,12 @@ class AdminController extends Controller
         User::create($request->all());
         return redirect()->route('admin.dashboard');
     }
+    public function depositForm()
+    {
+        return view('ui.deposit');
+    }
+    public function depositStore(Request $request)
+    {
+        dd($request->all());
+    }
 }

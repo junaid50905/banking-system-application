@@ -25,10 +25,17 @@ Route::get('/admin/dashboard/create-user', [AdminController::class, 'create'])->
 Route::post('/admin/dashboard/store-user', [AdminController::class, 'store'])->name('store.user');
 
 
+Route::get('/admin/dashboard/deposit', [AdminController::class, 'depositForm'])->name('deposit.form');
+Route::post('/admin/dashboard/deposit/store', [AdminController::class, 'depositStore'])->name('deposit.store');
+
+////
 
 
-Route::get('/login', [UserController::class, 'create']);
+Route::get('/login', [UserController::class, 'create'])->name('login');
 Route::post('/login/store', [UserController::class, 'store'])->name('store');
 Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
+
+
 
 
