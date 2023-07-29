@@ -39,4 +39,11 @@ class UserController extends Controller
         }
         return view('user.dashboard', compact('data'));
     }
+    public function logout()
+    {
+        if (session()->has('logged_in_user')) {
+            session()->pull('logged_in_user');
+            return redirect()->route('login');
+        }
+    }
 }

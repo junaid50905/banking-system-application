@@ -31,9 +31,10 @@ Route::post('/admin/dashboard/deposit/store', [AdminController::class, 'depositS
 ////
 
 
-Route::get('/login', [UserController::class, 'create'])->name('login');
+Route::get('/login', [UserController::class, 'create'])->name('login')->middleware('alreadyloggedin');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/login/store', [UserController::class, 'store'])->name('store');
-Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware('authcheck');
 
 
 
