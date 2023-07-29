@@ -222,7 +222,6 @@
         <div class="main-panel">
           <div class="content-wrapper">
             @yield('main_panel')
-            hi
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
