@@ -27,7 +27,12 @@ class AdminController extends Controller
             'password' => 'required',
             'account_type' => 'required'
         ]);
-        User::create($request->all());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'account_type' => $request->account_type,
+        ]);
         return redirect()->route('admin.dashboard');
     }
     public function depositForm()
@@ -39,6 +44,8 @@ class AdminController extends Controller
         $request->validate([
             'email' => 'required',
             'amount' => 'required',
+            'transaction_type' => 'required',
+            'fee' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
         $user_id = User::where('email', $request->email)->first()->id;
@@ -62,18 +69,21 @@ class AdminController extends Controller
         $request->validate([
             'email' => 'required',
             'amount' => 'required',
+            'transaction_type' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
         $user_id = User::where('email', $request->email)->first()->id;
         $account_type = User::where('email', $request->email)->first()->account_type;
-        dd($account_type);
+
         Transaction::create([
             'user_id' => $user_id,
             'transaction_type' => $request->transaction_type,
             'amount' => $request->amount,
             'date' => Carbon::now('Asia/dhaka')->toDateTimeString(),
+            'fee' => $account_type === 'individual' ? $request->amount * 0.05 : $request->amount * 0.10,
         ]);
-        $user->balance += $request->amount;
+        $user->balance -= $request->amount;
+        $user->balance -= $account_type === 'individual' ? $request->amount * 0.05 : $request->amount * 0.10;
         $user->save();
         return redirect()->route('admin.dashboard');
     }
