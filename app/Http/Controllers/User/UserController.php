@@ -36,8 +36,16 @@ class UserController extends Controller
         $data = array();
         if (session()->has('logged_in_user')) {
             $data = User::where('id', Session()->get('logged_in_user'))->first();
+            $userId = User::where('id', Session()->get('logged_in_user'))->first()->id;
+
+            // Find the user along with their transactions
+            $user = User::with(['transactions' => function ($query) {
+                $query->orderByDesc('created_at');
+            }])->findOrFail($userId);
+            // Access the transactions
+            $transactions = $user->transactions;
         }
-        return view('user.dashboard', compact('data'));
+        return view('user.dashboard', compact('data', 'transactions'));
     }
     public function logout()
     {

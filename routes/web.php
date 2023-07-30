@@ -28,6 +28,9 @@ Route::post('/admin/dashboard/store-user', [AdminController::class, 'store'])->n
 Route::get('/admin/dashboard/deposit', [AdminController::class, 'depositForm'])->name('deposit.form');
 Route::post('/admin/dashboard/deposit/store', [AdminController::class, 'depositStore'])->name('deposit.store');
 
+Route::get('/admin/dashboard/withdraw', [AdminController::class, 'withdrawForm'])->name('withdraw.form');
+Route::post('/admin/dashboard/withdraw/store', [AdminController::class, 'withdrawStore'])->name('withdraw.store');
+
 ////
 
 
