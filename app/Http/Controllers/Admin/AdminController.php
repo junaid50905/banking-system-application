@@ -10,15 +10,18 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // adminDashboard
     public function adminDashboard()
     {
         $total_users = User::count();
         return view('ui.dashboard', compact('total_users'));
     }
+    // create
     public function create()
     {
         return view('ui.create-user');
     }
+    // store
     public function store(Request $request)
     {
         $request->validate([
@@ -35,10 +38,12 @@ class AdminController extends Controller
         ]);
         return redirect()->route('admin.dashboard');
     }
+    // depositForm
     public function depositForm()
     {
         return view('ui.deposit');
     }
+    // depositStore
     public function depositStore(Request $request)
     {
         $request->validate([
@@ -60,10 +65,12 @@ class AdminController extends Controller
         $user->save();
         return redirect()->route('admin.dashboard');
     }
+    // withdrawForm
     public function withdrawForm()
     {
         return view('ui.withdraw');
     }
+    // withdrawStore
     public function withdrawStore(Request $request)
     {
         $request->validate([
@@ -80,10 +87,10 @@ class AdminController extends Controller
             'transaction_type' => $request->transaction_type,
             'amount' => $request->amount,
             'date' => Carbon::now('Asia/dhaka')->toDateTimeString(),
-            'fee' => $account_type === 'individual' ? $request->amount * 0.05 : $request->amount * 0.10,
+            'fee' => $account_type === 'individual' ? (Carbon::now()->format('l') === 'Friday' ? 0.00 : $request->amount * 0.05) : $request->amount * 0.10,
         ]);
         $user->balance -= $request->amount;
-        $user->balance -= $account_type === 'individual' ? $request->amount * 0.05 : $request->amount * 0.10;
+        $user->balance -= $account_type === 'individual' ? (Carbon::now()->format('l') === 'Friday' ? 0.00 : $request->amount * 0.05) : $request->amount * 0.10;
         $user->save();
         return redirect()->route('admin.dashboard');
     }

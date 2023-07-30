@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-9">
                             <div class="d-flex align-items-center align-self-start">
-                                <h3 class="mb-0">{{ $transactions->count() }} times</h3>
+                                <h3 class="mb-0">{{ $transactions->count() }}</h3>
                             </div>
                         </div>
                         <div class="col-3">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Deposited</h6>
+                    <h6 class="text-muted font-weight-normal">Total transactions</h6>
                 </div>
             </div>
         </div>
@@ -53,7 +53,8 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Date and Time</th>
+                                    <th>SN</th>
+                                    <th>Date</th>
                                     <th>Fee</th>
                                     <th>Amount</th>
                                     <th>Transaction Type</th>
@@ -62,6 +63,7 @@
                             <tbody>
                                 @foreach ($transactions as $transaction)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $transaction->date }}</td>
                                         <td>{{ $transaction->fee }}</td>
                                         <td
