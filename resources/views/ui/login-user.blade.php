@@ -32,11 +32,11 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Email *</label>
-                                    <input type="email" name="email" class="form-control p_input">
+                                    <input type="email" name="email" class="form-control p_input text-white">
                                 </div>
                                 <div class="form-group">
                                     <label>Password *</label>
-                                    <input type="password" name="password" class="form-control p_input">
+                                    <input type="password" name="password" class="form-control p_input text-white">
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>

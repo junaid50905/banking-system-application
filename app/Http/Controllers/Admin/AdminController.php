@@ -81,16 +81,18 @@ class AdminController extends Controller
         $user = User::where('email', $request->email)->first();
         $user_id = User::where('email', $request->email)->first()->id;
         $account_type = User::where('email', $request->email)->first()->account_type;
+        $total_withdraw = Transaction::where('user_id', $user_id)->where('transaction_type', 'withdrawal')->sum('amount');
+
 
         Transaction::create([
             'user_id' => $user_id,
             'transaction_type' => $request->transaction_type,
             'amount' => $request->amount,
             'date' => Carbon::now('Asia/dhaka')->toDateTimeString(),
-            'fee' => $account_type === 'individual' ? (Carbon::now()->format('l') === 'Friday' ? 0.00 : $request->amount * 0.05) : $request->amount * 0.10,
+            'fee' => $account_type === 'individual' ? (Carbon::now()->format('l') === 'Friday' ? 0.00 : $request->amount * 0.00015) : ($total_withdraw >= 50000 ? $request->amount * 0.00015 : $request->amount * 0.00025),
         ]);
         $user->balance -= $request->amount;
-        $user->balance -= $account_type === 'individual' ? (Carbon::now()->format('l') === 'Friday' ? 0.00 : $request->amount * 0.05) : $request->amount * 0.10;
+        $user->balance -= $account_type === 'individual' ? (Carbon::now()->format('l') === 'Friday' ? 0.00 : $request->amount * 0.00015) : ($total_withdraw === 50000 ? $request->amount * 0.00015 : $request->amount * 0.00025);
         $user->save();
         return redirect()->route('admin.dashboard');
     }

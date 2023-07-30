@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -44,8 +45,12 @@ class UserController extends Controller
             }])->findOrFail($userId);
             // Access the transactions
             $transactions = $user->transactions;
+            $total_transaction = Transaction::where('user_id', $userId)->sum('amount');
+            $total_withdraw = Transaction::where('user_id', $userId)->where('transaction_type', 'withdrawal')->sum('amount');
+            
+
         }
-        return view('user.dashboard', compact('data', 'transactions'));
+        return view('user.dashboard', compact('data', 'transactions', 'total_transaction', 'total_withdraw'));
     }
     public function logout()
     {

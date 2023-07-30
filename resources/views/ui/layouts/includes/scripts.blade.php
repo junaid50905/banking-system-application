@@ -17,3 +17,4 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{{ asset('ui') }}/assets/js/dashboard.js"></script>
+    <script src="{{ asset('ui') }}/assets/js/custom.js"></script>

@@ -12,19 +12,19 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Transaction Type</label>
                             <div class="col-sm-9">
-                                <input type="text" name="transaction_type" class="form-control" value="withdrawal">
+                                <input type="text" name="transaction_type" class="form-control text-white" value="withdrawal">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
-                                <input type="email" name="email" class="form-control" placeholder="email">
+                                <input type="email" name="email" class="form-control text-white" placeholder="email">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Amount</label>
                             <div class="col-sm-9">
-                                <input type="text" name="amount" class="form-control" placeholder="amount">
+                                <input type="text" name="amount" class="form-control text-white" placeholder="amount">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
